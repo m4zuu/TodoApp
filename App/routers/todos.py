@@ -20,19 +20,14 @@ templates = Jinja2Templates(directory="TodoApp/templates")
 def get_db():
     db = SessionLocal()
     try:
-        # Yield means only the code prior to and including the yield statement is
-        # executed before sending a res´ponse
         yield db
     finally:
         db.close()
 
-# DB dependency Injection, value type Annotated, and 2 steps to complete before sending a response
 db_dependency= Annotated[Session, Depends(get_db)]
 user_dependency = Annotated[dict, Depends(get_current_user)]
 
-# Pydantic request for data validation
 class TodoRequest(BaseModel):
-    # We do not pass id, because it is autoincrement and unique, also indexed
     title : str = Field(min_length=3)
     description : str = Field(min_length=3, max_length=100)
     priority : int = Field(gt=0, lt=6)
@@ -87,10 +82,6 @@ async def render_edit_todo_page(request: Request,
 
 ### Endpoint ###
 
-# Depends is Dependency Injection, this really just means in programming that we need
-# to do something before we execute what we're trying to execute.
-# This allow us to do some kind of code behind the scenes and then inject the dependencies,
-# that this function relies on.
 @router.get("/")
 async def read_all(user: user_dependency, db: db_dependency, 
                    status_code=status.HTTP_200_OK):
@@ -98,10 +89,7 @@ async def read_all(user: user_dependency, db: db_dependency,
         raise HTTPException(status_code=401,
                             detail='Authentication Failed.')
     return db.query(Todos).filter(Todos.owner_id == user.get('id')).all()
-# This function relies on our DB opening up. be able to create a session and then return that
-# information back to us and then closing the session behind the scenes
 
-# We add more dynamic to out endpoint, calling status and adding a Path validation to todo_id
 @router.get("/todo/{todo_id}", status_code=status.HTTP_200_OK)
 async def read_todo(user: user_dependency,db: db_dependency, todo_id: int = Path(gt=0)):
     if user is None:

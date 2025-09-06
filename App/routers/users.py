@@ -17,13 +17,10 @@ router = APIRouter(
 def get_db():
     db = SessionLocal()
     try:
-        # Yield means only the code prior to and including the yield statement is
-        # executed before sending a res´ponse
         yield db
     finally:
         db.close()
 
-# DB dependency Injection, value type Annotated, and 2 steps to complete before sending a response
 db_dependency= Annotated[Session, Depends(get_db)]
 user_dependency = Annotated[dict, Depends(get_current_user)]
 bcrypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')

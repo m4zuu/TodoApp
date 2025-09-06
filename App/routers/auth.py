@@ -43,13 +43,10 @@ class Token(BaseModel):
 def get_db():
     db = SessionLocal()
     try:
-        # Yield means only the code prior to and including the yield statement is
-        # executed before sending a response
         yield db
     finally:
         db.close()
 
-# DB dependency Injection, value type Annotated, and 2 steps to complete before sending a response
 db_dependency= Annotated[Session, Depends(get_db)]
 
 templates = Jinja2Templates(directory="TodoApp/templates")

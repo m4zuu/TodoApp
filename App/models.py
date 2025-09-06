@@ -18,11 +18,9 @@ class Users(Base):
 
 class Todos(Base):
     __tablename__ = 'todos'
-    # Name of table in the database
     id = Column(Integer, primary_key=True,index=True, autoincrement=True)
     title = Column(String)
     description = Column(String)
     priority = Column(Integer)
     complete = Column(Boolean, default=False)
     owner_id = Column(Integer, ForeignKey("users.id"))
-    # These are the columns presented in the table
