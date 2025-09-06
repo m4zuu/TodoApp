@@ -7,7 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 
 
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:password@localhost:5432/todosapp"
+SQLALCHEMY_DATABASE_URL = "postgresql://admin:7s0hwKFJrO1UWe3vmYN4NE3kZwglJpTq@dpg-d2u1116r433s73drl50g-a.oregon-postgres.render.com/todosappdb_0307"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
