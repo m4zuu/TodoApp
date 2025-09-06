@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from App.models import Todos
 from starlette import status
 from pydantic import BaseModel, Field
-from auth import get_current_user
+from App.routers.auth import get_current_user
 
 router = APIRouter(
     prefix='/admin',

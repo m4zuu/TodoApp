@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from App.models import Todos
 from starlette import status
 from pydantic import BaseModel, Field
-from auth import get_current_user
+from App.routers.auth import get_current_user
 from starlette.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 
@@ -14,7 +14,7 @@ router = APIRouter(
     tags=['todos']
 )
 
-templates = Jinja2Templates(directory="TodoApp/templates")
+templates = Jinja2Templates(directory="App/templates")
 
 # DB Dependency
 def get_db():

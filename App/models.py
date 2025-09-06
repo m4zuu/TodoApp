@@ -1,4 +1,4 @@
-from Database import Base
+from App.Database import Base
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey # type: ignore
 
 # Here we create the actual tables that are going to be created in our database

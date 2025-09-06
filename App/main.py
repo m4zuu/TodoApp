@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, status
-from models import Base
-from Database import engine
-from routers import auth, todos, admin, users
+from App.models import Base
+from App.Database import engine
+from App.routers import auth, todos, admin, users
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 
@@ -9,7 +9,7 @@ from fastapi.responses import RedirectResponse
 app = FastAPI()
 Base.metadata.create_all(bind=engine)
 
-app.mount("/static", StaticFiles(directory="TodoApp/static"), name="static")
+app.mount("/static", StaticFiles(directory="App/static"), name="static")
 
 @app.get('/')
 def test(request : Request):

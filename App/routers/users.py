@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from App.models import Todos, Users
 from starlette import status
 from pydantic import BaseModel, Field
-from auth import get_current_user
+from App.routers.auth import get_current_user
 from passlib.context import CryptContext
 
 router = APIRouter(
